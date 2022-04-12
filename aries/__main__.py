@@ -98,7 +98,7 @@ buttons = [
     ],
     [
         InlineKeyboardButton(text=" ｢ Support 」", url="http://t.me/idzeroidsupport"),
-        InlineKeyboardButton(text=" [❌] ", callback_data="close"),
+        InlineKeyboardButton(text=" [Hmm] ", callback_data="source_"),
         InlineKeyboardButton(text=" ｢ Update 」", url="http://t.me/idzeroid"),
     ],
 ]
@@ -511,6 +511,43 @@ def aries_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton(text="Back", callback_data="aboutmanu_howto")]]
             ),
+        )
+@run_async
+def Source_about_callback(update, context):
+    query = update.callback_query
+    if query.data == "source_":
+        query.message.edit_text(
+            text="""Info & About 
+                 \nClick buttons for help""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                  [
+                    InlineKeyboardButton(text="🙋‍♀️ About Me", callback_data="sophia_"),
+                    InlineKeyboardButton(text="❓ Basic Help", callback_data="sophia_basichelp"),
+                  ],
+                  [
+                    InlineKeyboardButton(text=" Special Credits ❤ ", url=f"https://telegra.ph/Special-Credits-08-21"),
+                    InlineKeyboardButton(text="Terms And Conditions 📄 ", url=f"https://telegra.ph/Terms-and-Conditions-08-21"),
+                  ],
+                  [
+                    InlineKeyboardButton(text="💾 Source Code", url=f"https://github.com/dihanofficial/SophiaBot"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Go Back", callback_data="source_back")
+                 ]
+                ]
+            ),
+        )
+
+    elif query.data == "source_back":
+        query.message.edit_text(
+                PM_START_TEXT,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.MARKDOWN,
+                timeout=60,
+                disable_web_page_preview=False,
         )
     elif query.data == "aboutmanu_tac":
         query.message.edit_text(
